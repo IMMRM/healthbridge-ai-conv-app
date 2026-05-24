@@ -14,7 +14,7 @@ class Policy(Base):
 
     sum_assured = Column(Numeric, nullable=False)
 
-    premium_amount = Column(Numeric, nullable=False)
+    premium = Column(Numeric, nullable=False)
 
     start_date = Column(Date, nullable=False)
 
