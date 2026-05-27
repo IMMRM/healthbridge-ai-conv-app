@@ -2,59 +2,56 @@
 
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
+from utils.serializer import serialize_model
 
 from models.claims import Claim
 from models.claims_breakup import ClaimsBreakup
 
 
 # =========================================================
+# CLAIMS FIELDS
+# =========================================================
+CLAIM_FIELDS = [
+    "claim_id",
+    "policy_id",
+    "member_id",
+    "claim_date",
+    "claim_amount",
+    "approved_amount",
+    "status",
+    "hospital_name",
+    "claim_type"
+]
+
+# ========================================================
+# CLAIMS BREAKUP FIELDS
+# ========================================================
+CLAIM_BREAKUP_FIELDS = [
+    "breakup_id",
+    "claim_id",
+    "benefit_type",
+    "sub_type",
+    "amount",
+    "approved_amount",
+    "remarks"
+]
+
+# =========================================================
 # SERIALIZERS
 # =========================================================
 
-def serialize_claim(claim: Claim):
+# def serialize_claim(claim: Claim):
 
-    if not claim:
-        return None
+#     if not claim:
+#         return None
 
-    return {
-        "claim_id": claim.claim_id,
-        "policy_id": claim.policy_id,
-        "member_id": claim.member_id,
-        "claim_date": (
-            claim.claim_date.isoformat()
-            if claim.claim_date else None
-        ),
-        "claim_amount": (
-            float(claim.claim_amount)
-            if claim.claim_amount is not None else 0
-        ),
-        "approved_amount": (
-            float(claim.approved_amount)
-            if claim.approved_amount is not None else 0
-        ),
-        "status": claim.status,
-        "hospital_name": claim.hospital_name,
-        "claim_type": claim.claim_type
-    }
+#     return serialize_model(claim, CLAIM_FIELDS)
+        
 
+# def serialize_claim_breakup(breakup: ClaimsBreakup):
 
-def serialize_claim_breakup(breakup: ClaimsBreakup):
-
-    return {
-        "breakup_id": breakup.breakup_id,
-        "claim_id": breakup.claim_id,
-        "benefit_type": breakup.benefit_type,
-        "sub_type": breakup.sub_type,
-        "amount": (
-            float(breakup.amount)
-            if breakup.amount is not None else 0
-        ),
-        "approved_amount": (
-            float(breakup.approved_amount)
-            if breakup.approved_amount is not None else 0
-        ),
-        "remarks": breakup.remarks
-    }
+#     return serialize_model(breakup, CLAIM_BREAKUP_FIELDS)
+    
 
 
 # =========================================================
@@ -72,7 +69,7 @@ def get_claim_by_id(
         .first()
     )
 
-    return serialize_claim(claim)
+    return serialize_model(claim,CLAIM_FIELDS)
 
 
 def get_claim_breakup_by_claim_id(
@@ -87,7 +84,7 @@ def get_claim_breakup_by_claim_id(
     )
 
     return [
-        serialize_claim_breakup(b)
+        serialize_model(b, CLAIM_BREAKUP_FIELDS)
         for b in breakups
     ]
 
@@ -109,7 +106,7 @@ def get_claims_by_member_id(
     )
 
     return [
-        serialize_claim(claim)
+        serialize_model(claim, CLAIM_FIELDS)
         for claim in claims
     ]
 
@@ -127,7 +124,7 @@ def get_claims_by_policy_id(
     )
 
     return [
-        serialize_claim(claim)
+        serialize_model(claim, CLAIM_FIELDS)
         for claim in claims
     ]
 
@@ -145,7 +142,7 @@ def get_recent_claims(
     )
 
     return [
-        serialize_claim(claim)
+        serialize_model(claim, CLAIM_FIELDS)
         for claim in claims
     ]
 
@@ -174,7 +171,7 @@ def update_claim_status(
     db.commit()
     db.refresh(claim)
 
-    return serialize_claim(claim)
+    return serialize_model(claim, CLAIM_FIELDS)
 
 
 # =========================================================
@@ -194,4 +191,4 @@ def create_claim(
 
     db.refresh(new_claim)
 
-    return serialize_claim(new_claim)
+    return serialize_model(new_claim, CLAIM_FIELDS)
