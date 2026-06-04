@@ -5,5 +5,9 @@ langchain-openai
 groq
 python-dotenv
 fastapi
+fastapi[standard]
 uvicorn
 pydantic
+pytest
+sqlalchemy
+psycopg2-binary
