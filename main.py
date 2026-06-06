@@ -19,7 +19,8 @@ agent = ClaimAssessmentAgent(
 )
 
 response = agent.assess_claim(
-    "CLM001"
+    claim_id="CLM001",
+    question="Give me information about my claim"
 )
 
 print(response)

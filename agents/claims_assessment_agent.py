@@ -35,7 +35,8 @@ class ClaimAssessmentAgent:
 
     def assess_claim(
         self,
-        claim_id: str
+        claim_id: str,
+        question: str
     ):
 
         context = build_claims_context(
@@ -50,6 +51,7 @@ class ClaimAssessmentAgent:
 
         response = self.chain.invoke(
             {
+                "question": question,
                 "context": json.dumps(
                     context,
                     indent=2

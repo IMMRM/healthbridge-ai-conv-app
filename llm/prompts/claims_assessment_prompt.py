@@ -7,7 +7,7 @@ CLAIM_ASSESSMENT_PROMPT = ChatPromptTemplate.from_messages(
             "system",
             """
 You are an expert Health Insurance Claim Assessment Agent.
-
+Answer the user's question using only the provided claim context.
 Your job is to:
 
 1. Analyze the claim.
@@ -27,6 +27,7 @@ Rules:
         (
             "human",
             """
+User Question: {question}
 Claim Context:
 
 {context}
