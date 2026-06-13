@@ -10,9 +10,9 @@ class Member(Base):
 
     policy_id = Column(String, nullable=False)
 
-    member_name = Column(String, nullable=False)
+    name = Column(String, nullable=False)
 
-    relationship = Column(String, nullable=False)
+    relation = Column(String, nullable=False)
 
     gender = Column(String, nullable=False)
 

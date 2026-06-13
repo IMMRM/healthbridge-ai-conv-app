@@ -14,12 +14,12 @@ class PlanBenefit(Base):
 
     sub_type = Column(String, nullable=False)
 
-    coverage_limit = Column(String, nullable=False)
+    value = Column(String, nullable=False)
 
-    coverage_unit = Column(String)
+    unit = Column(String)
 
-    waiting_period = Column(String)
+    conditions = Column(String)
 
     limit_type = Column(String)
 
-    remarks = Column(String)
+    notes = Column(String)

@@ -7,7 +7,7 @@ from llm.prompts.claims_assessment_prompt import (
 )
 
 from services.claims_assessment_service import (
-    build_claims_context
+    build_claim_context
 )
 
 
@@ -39,7 +39,7 @@ class ClaimAssessmentAgent:
         question: str
     ):
 
-        context = build_claims_context(
+        context = build_claim_context(
             self.db,
             claim_id
         )
